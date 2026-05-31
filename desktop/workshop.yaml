@@ -1,0 +1,22 @@
+# ==============================================================================
+# DESKTOP WORKSHOP CONFIGURATION (Intel CPU + NVIDIA GPU)
+# Location: .workshop/desktop.yaml
+# ==============================================================================
+#
+# STEP-BY-STEP RUN INSTRUCTIONS:
+#   1. Open terminal in this directory.
+#   2. Launch this specific workshop profile:
+#         workshop launch
+#   3. Verify the background service is running and sees the GPU:
+#         workshop exec -- nvidia-smi
+#   4. Run accelerated model:
+#         workshop exec ollama run qwen2.5-coder:7b
+# ==============================================================================
+
+name: desktop-ollama
+base: ubuntu@24.04
+# base: ubuntu@26.04 (hasn't been built yet for 26)
+
+sdks:
+  - name: ollama
+    channel: stable

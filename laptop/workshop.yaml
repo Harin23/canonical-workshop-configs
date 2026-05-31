@@ -1,0 +1,37 @@
+# ==============================================================================
+# LAPTOP WORKSHOP CONFIGURATION (AMD AI Pro with iGPU & NPU)
+# Location: .workshop/laptop.yaml
+# ==============================================================================
+#
+# STEP-BY-STEP RUN INSTRUCTIONS:
+#
+#   BEFORE YOU LAUNCH (Host Permissions Check):
+#   Ensure your local user can access the hardware rendering layers on your laptop:
+#         sudo usermod -aG video,render $USER
+#   (Note: If you just ran this, log out of Ubuntu and log back in to apply groups!)
+#
+#   STEP 1: Spin up the workshop profile
+#         workshop launch laptop
+#
+#   todo: look into this. try it if it doesnt work on its own. most likely will
+#   STEP 2: Punch the AMD NPU hardware node through the container sandbox wall
+#   Run this command on your host terminal (adjust 'my-ai-project' if your folder name is different):
+#         lxc config device add workshop-my-ai-project-laptop amd-npu unix-char source=/dev/accel/accel0 path=/dev/accel/accel0
+#
+#   STEP 3: Verify both the iGPU and NPU are visible inside the sandbox
+#         workshop shell laptop
+#         ls -l /dev/dri/      <- Should show renderD128 (iGPU)
+#         ls -l /dev/accel/    <- Should show accel0 (NPU)
+#         exit
+#
+#   STEP 4: Run your model hardware-accelerated
+#         workshop exec -w laptop ollama run llama3.2
+# ==============================================================================
+
+name: laptop
+base: ubuntu@24.04
+
+sdks:
+  - name: lemonade-server-workshop
+    channel: latest/stable
+  - name: system
