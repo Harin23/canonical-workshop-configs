@@ -10,7 +10,7 @@
 #   3. Verify the background service is running and sees the GPU:
 #         workshop exec -- nvidia-smi
 #   4. Run accelerated model:
-#         workshop exec ollama run qwen2.5-coder:7b
+#         workshop exec ollama run qwen3.5:9b
 # ==============================================================================
 
 name: desktop-ollama
@@ -20,3 +20,9 @@ base: ubuntu@24.04
 sdks:
   - name: ollama
     channel: stable
+
+  - name: system
+    plugs:
+      ollama-server:
+        interface: tunnel
+        endpoint: localhost:11434
